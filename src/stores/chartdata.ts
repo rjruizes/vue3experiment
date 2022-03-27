@@ -1,16 +1,21 @@
+import { useInputStore } from '@/components/Harness/inputStore';
 import { defineStore } from 'pinia'
+
+export const initialState = {
+  data: null as null | string[]
+}
 
 export const useDataStore = defineStore({
   id: 'chartdata',
-  state: () => ({
-    data: null,
-    filter1: '',
-  }),
+  state: () => initialState,
   getters: {
     filteredData: (state) => {
+      const search = useInputStore('search')()
       let data = state.data
-      if(state.filter1 !== '') {
-        data = state.data.filter(item => item === state.filter1)
+      if(!data) return data
+
+      if(search.val !== '') {
+        data = state.data!.filter(item => item === search.val)
       }
       return data
     }
@@ -20,9 +25,6 @@ export const useDataStore = defineStore({
       this.data = await new Promise((resolve, reject) => {
         setTimeout(() => resolve(['Syd', 'Jane', 'Tom']), 500)
       })
-    },
-    setFilter1() {
-      this.filter1 = 'Jane'
     }
   }
 })

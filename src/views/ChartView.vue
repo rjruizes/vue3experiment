@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import Chart from '../components/Harness/Chart.vue'
-import Filter1 from '../components/Harness/Filter1.vue'
+import HarnessInput from '../components/Harness/Input.vue'
 
 import { useDataStore } from '@/stores/chartdata';
 const dataStore = useDataStore()
@@ -14,7 +14,7 @@ onMounted(() => {
 
 <template>
   <main>
-    <Filter1 />
+    <HarnessInput filter="search" />
     <Chart />
   </main>
 </template>
